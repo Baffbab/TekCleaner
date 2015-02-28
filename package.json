@@ -1,0 +1,27 @@
+{
+    "name": "TEKTOLOGY Client Cleaner",
+    "description": "Use YUICompressor and Node.js to clean the files pre-production for post-production and upload",
+    "version": "2.4.8",
+    "author": "John Nelson <john@tektology.com>",
+    "contributors": [ 
+        {
+            "name" : "James",
+            "email" : "james@tektology.com"
+        }
+    ],
+    "bugs": { "url" : "http://www.tektology.com" },
+    "dependencies": {
+        "yuicompressor": "~2.4.8"
+    },
+    "devDependencies": {
+        "yuicompressor": "*"
+    },
+    "keywords": [
+        "internal"
+    ],
+    
+    "repository": {
+        "type":"git",
+        "url":"https://www.tektology.com/GITSOURCE/"
+    }
+}
