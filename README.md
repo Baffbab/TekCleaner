@@ -1,4 +1,4 @@
-# Compile JS Code!!!
+# Washing Machine for web files.
 
 
 
@@ -18,3 +18,6 @@ might have to type password:pencil
 
 ./DEBUG.sh
 
+
+
+This is just a first stab. The compile and copy work but minify does not yet. No time to finish it.
