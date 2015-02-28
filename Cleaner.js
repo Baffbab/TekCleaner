@@ -7,7 +7,10 @@
     node-debug --web-port 9000 --debug-port 9005 --save-live-edit Cleaner.js
 
 */
-
+/*
+    Good docs on how to use this...
+    https://developers.google.com/closure/compiler/docs/api-tutorial3
+*/
 
 var fs = require("fs");
 var path = require("path");
@@ -74,67 +77,103 @@ var Cleaner = {
 //fucks..
 Cleaner.CONFIG.SourceFolder = '/media/johnrnelson/Work(Enc)/TekCleaner/TESTING/SOURCE';
 Cleaner.CONFIG.TargetFolder = '/media/johnrnelson/Work(Enc)/TekCleaner/TESTING/dest';
-/*
-Compiler.CompileCode(srcFolder+'/devtools/devtools.js',
-    destFolder+'/testme.js', {
-        //Compressor Options:
-        charset: 'utf8',
-        type: 'js',
-        nomunge: true,
-        // 'line-break': 80
-    },
-    function(argument) {
-        // body...
-        console.log(argument)
-    });
-*/
+
 /*
  */
 console.log('Starting Cleaner from :' + __dirname)
 
-WalkFolder.DeleteTargetFolders(Cleaner.CONFIG.TargetFolder);
 
-WalkFolder.BuildScriptMap(Cleaner.CONFIG, function(ScriptMap) {
-    // Cleaner.CONFIG.TargetFolder
+function DoTeamDebugRun() {
 
-    if (!ScriptMap) {
-        console.log('Error in building the script map...');
-    } else {
-        console.log('Finished building Script Map...');
+    WalkFolder.DeleteTargetFolders(Cleaner.CONFIG.TargetFolder);
 
-        // console.log('Looping Copied('+ScriptMap.copied.length+')...:');
-        // for (var f in ScriptMap.copied) {
-        //     var fileOBJ = ScriptMap.copied[f];
-        //     // console.log('file:', fileOBJ);
-        //     console.log(fileOBJ.Source, fileOBJ.Target);
-        //     // debugger;;
-        //     fs.writeFileSync(fileOBJ.Target, fs.readFileSync(fileOBJ.Source));
-        // }
+    WalkFolder.BuildScriptMap(Cleaner.CONFIG, function(ScriptMap) {
+        // Cleaner.CONFIG.TargetFolder
 
+        if (!ScriptMap) {
+            console.log('Error in building the script map...');
+        } else {
+            console.log('Finished building Script Map...');
 
-        // console.log('Looping Compiled(' + ScriptMap.compiled.length + ')...:');
-        // debugger;
-        // Compiler.ManageList(ScriptMap.compiled, function(AmDone) {
-        //     console.log('mmmmm')
-        // });
+            // console.log('Looping Copied('+ScriptMap.copied.length+')...:');
+            // for (var f in ScriptMap.copied) {
+            //     var fileOBJ = ScriptMap.copied[f];
+            //     // console.log('file:', fileOBJ);
+            //     console.log(fileOBJ.Source, fileOBJ.Target);
+            //     // debugger;;
+            //     fs.writeFileSync(fileOBJ.Target, fs.readFileSync(fileOBJ.Source));
+            // }
 
 
+            // console.log('Looping Compiled(' + ScriptMap.compiled.length + ')...:');
+            // debugger;
+            // Compiler.ManageList(ScriptMap.compiled, function(AmDone) {
+            //     console.log('mmmmm')
+            // });
 
 
-        console.log('Looping minified('+ScriptMap.minified.length+')...:');
-        for (var f in ScriptMap.minified) {
-            var fileOBJ = ScriptMap.minified[f];
-            console.log('file:', fileOBJ);
-            Compiler.CompressCode(fileOBJ.Source,fileOBJ.Target,{},function(){
-                
-            })
+
+
+            // console.log('Looping minified('+ScriptMap.minified.length+')...:');
+            // for (var f in ScriptMap.minified) {
+            //     var fileOBJ = ScriptMap.minified[f];
+            //     console.log('file:', fileOBJ);
+            //     Compiler.CompressCode(fileOBJ.Source,fileOBJ.Target,{},function(){
+
+            //     })
+            // }
+
+
+
+
+
+            console.log('finsihed....');
         }
+        // Cleaner.CLEAN.Manifest();
+    });
+};
 
 
 
+function TestBuildBuilder() {
+        var bldrConfigPath = '/media/johnrnelson/Work(Enc)/TekCleaner/TESTING/BulkBuilder/bulkbuilder.json';
+        var fileContents = fs.readFileSync(bldrConfigPath, 'utf8');
+        var bldConfig = JSON.parse(fileContents);
+        // console.log(bldConfig);
+        // console.log(bldConfig.files);
+
+        // var filesList = [];
 
 
-        console.log('finsihed....');
-    }
-    // Cleaner.CLEAN.Manifest();
-})
+        var execFile = require('child_process').execFile;
+        var fileExt;
+        execFile('find', ['/media/johnrnelson/Work(Enc)/TekCleaner/TESTING/BulkBuilder/WHOLEFOLDER/'], function(err, stdout, stderr) {
+            var FOUND_FILE_LIST = stdout.split('\n');
+            /* now you've got a list with full path file names */
+            debugger;
+            // console.log(FOUND_FILE_LIST)
+            FOUND_FILE_LIST.forEach(function(ITEM) {
+                fileExt = path.extname(ITEM);
+                if (fileExt == '.js') {
+                    // console.log('--->' + ITEM);
+                    bldConfig.files.push(ITEM)
+
+                }
+
+            })
+
+            console.log('ok start building...');
+            console.log(bldConfig.files);
+            var finsihedFilePath = '/media/johnrnelson/Work(Enc)/TekCleaner/TESTING/BulkBuilder/MYENDSCRIPT.js'
+            Compiler.CompileCodes(bldConfig.files, finsihedFilePath, {}, function(Response) {
+                if (Response.Error) {
+                    console.log(Response.Error)
+                }else{
+                    console.log('File was written:',finsihedFilePath)
+
+                }
+            })
+        }); //end getting files..
+    } //End testing...
+
+TestBuildBuilder()
