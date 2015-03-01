@@ -3,11 +3,19 @@
 Clean wash and keep up to date.
 
 
+
 ## Index
 - [Installing NPMs](#installing-npms)
 - [Running a Build](#build-source)
 
+
+
+
+![alt text](/images/cleaners.png "Washing it up baby!")
  
+
+Keep it clean!
+
 
 ## Installing NPMs
 
