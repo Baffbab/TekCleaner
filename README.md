@@ -11,8 +11,9 @@ Clean wash and keep up to date.
 
 
 
-![alt text](/images/cleaners.png "Washing it up baby!")
+![alt text](/images/wtf.png "Washing it up baby!")
  
+ Image fix!!
 
 Keep it clean!
 
